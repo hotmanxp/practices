@@ -4,6 +4,8 @@ import BinaryTree from './tree-modal.js'
 import BinaryTreeRender from './tree-node'
 import consts from './consts'
 
+const testArray = [18, 4, 83, 45, 3, 43, 53, 12, 34]
+
 class Binary extends Component {
   constructor (props) {
     super(props)
@@ -11,8 +13,11 @@ class Binary extends Component {
     this._renderTree = this._renderTree.bind(this)
   }
   componentDidMount () {
-    let testArray = [18, 4, 83, 45, 3, 43, 53, 12, 34]
     this._renderBinaryTree(testArray)
+    window.addEventListener('resize', this._renderTree)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._renderTree)
   }
 
   _renderBinaryTree(list) {
@@ -33,6 +38,7 @@ class Binary extends Component {
 
   _renderTree() {
     let sourceArray = this.refs.sources.value.split(',').map(i => +i)
+    sourceArray = sourceArray.length > 1 ? sourceArray : testArray
     this._renderBinaryTree(sourceArray)
   }
 
