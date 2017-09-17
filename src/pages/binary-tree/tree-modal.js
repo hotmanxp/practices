@@ -48,6 +48,13 @@ class BinaryTree {
     let right = this._listNode(node.right)
     return [].concat(left, [middle], right)
   }
+  inputBase (source) {
+    if (Array.isArray(source)) {
+      source.forEach(i => this.insert(+i))
+    } else {
+      this.insert(+source)
+    }
+  }
 }
 
 export default BinaryTree

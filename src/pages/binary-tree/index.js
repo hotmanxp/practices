@@ -16,7 +16,7 @@ class Binary extends Component {
 
   _renderBinaryTree(list) {
     let binaryTree = new BinaryTree()
-    list.forEach (i => binaryTree.insert(i))
+    binaryTree.inputBase(list)
     this.buildTreeGraph(binaryTree)
   }
 
