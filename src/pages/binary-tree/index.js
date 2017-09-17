@@ -43,9 +43,9 @@ class Binary extends Component {
         <div>
           <input placeholder='input number, split by ","' ref='sources' style={{display: 'inline-block', width: '80%'}} />
           <div className='btn' onClick={this._renderTree}>Render</div>
-          <div>{this.state.allList}</div>
+          <div>sorted result: {this.state.allList}</div>
         </div>
-        <div ref='container' style={{position: 'relative', left: 0, top: 0}}>
+        <div ref='container' style={{position: 'relative'}}>
           {this.state.binaryTreeDom && this.state.binaryTreeDom}
         </div>
       </div>

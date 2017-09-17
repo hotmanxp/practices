@@ -1,3 +1,3 @@
 export default {
-  treeLevelHeight: 50
+  treeLevelHeight: 100
 }

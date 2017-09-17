@@ -8,23 +8,46 @@ const Node = ({width, value, isRight, leftChild, rightChild}) => {
     position: 'absolute',
     top: `${consts.treeLevelHeight}px`,
     left: isRight ? `${width}px` : 0,
-    border: '1px solid #fcc',
     textAlign: 'center',
     lineHeight: `${consts.treeLevelHeight}px`
   }
   const nodeStyle = {
     display: 'inline-block',
-    height: `${consts.treeLevelHeight}px`,
-    width: `${consts.treeLevelHeight}px`,
+    height: `${consts.treeLevelHeight / 2}px`,
+    width: `${consts.treeLevelHeight / 2}px`,
     borderRadius: '50%',
     backgroundColor: '#fcc',
     color: '#333',
-    lineHeight: `${consts.treeLevelHeight}px`
+    lineHeight: `${consts.treeLevelHeight / 2}px`,
+    marginTop: `-${consts.treeLevelHeight / 4}px`
   }
+  const linkLineStyle = {
+    position: 'absolute',
+    width: `${width / 4}px`,
+    height: `${consts.treeLevelHeight * 3 / 4}px`,
+    borderStyle: 'solid',
+    borderColor: '#fcc',
+    top: `${consts.treeLevelHeight / 2}px`,
+    zIndex: -1
+  }
+  let leftLinkStyle = {
+    borderWidth: '1px 0 0 1px',
+    left: `${width / 4}px`
+  }
+  let rightLinkStyle = {
+    borderWidth: '1px 1px 0 0',
+    left: `${width / 2}px`
+  }
+  leftLinkStyle = Object.assign(leftLinkStyle, linkLineStyle)
+  rightLinkStyle = Object.assign(rightLinkStyle, linkLineStyle)
+  let leftLinkLine = <div style={leftLinkStyle} ></div>
+  let rightLinkLine = <div style={rightLinkStyle}></div>
   return <div style={style}>
     <span style={nodeStyle}>{value}</span>
     {leftChild && leftChild}
+    {leftChild && leftLinkLine}
     {rightChild && rightChild}
+    {rightChild && rightLinkLine}
     </div>
 }
 
