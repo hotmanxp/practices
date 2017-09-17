@@ -1,0 +1,16 @@
+.btn {
+  line-height: 30px;
+  height: 30px;
+  border-radius: 3px;
+  width: 80px;
+  text-align: center;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+  margin: 10px 20px;
+  border: 1px solid #faa;
+}
+.link-btn {
+  background-color: #faa;
+  color: #333;
+}
