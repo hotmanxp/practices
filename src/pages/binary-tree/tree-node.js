@@ -1,24 +1,25 @@
 import React from 'react';
+import consts from './consts'
 
 const Node = ({width, value, isRight, leftChild, rightChild}) => {
   const style={
-    height: '50px',
+    height: `${consts.treeLevelHeight}px`,
     width: `${width}px`,
     position: 'absolute',
-    top: '50px',
+    top: `${consts.treeLevelHeight}px`,
     left: isRight ? `${width}px` : 0,
     border: '1px solid #fcc',
     textAlign: 'center',
-    lineHeight: '50px'
+    lineHeight: `${consts.treeLevelHeight}px`
   }
   const nodeStyle = {
     display: 'inline-block',
-    height: '50px',
-    width: '50px',
+    height: `${consts.treeLevelHeight}px`,
+    width: `${consts.treeLevelHeight}px`,
     borderRadius: '50%',
     backgroundColor: '#fcc',
     color: '#333',
-    lineHeight: '50px'
+    lineHeight: `${consts.treeLevelHeight}px`
   }
   return <div style={style}>
     <span style={nodeStyle}>{value}</span>

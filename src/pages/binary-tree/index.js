@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import BinaryTree from './tree-modal.js'
 import BinaryTreeRender from './tree-node'
+import consts from './consts'
 
 class Binary extends Component {
   constructor (props) {
@@ -24,7 +25,7 @@ class Binary extends Component {
     let treeHeight = binaryTree.treeHeight
     let container = findDOMNode(this.refs.container)
     let containerWidth = container.clientWidth
-    container.style.height = `${treeHeight * 50}px`
+    container.style.height = `${treeHeight * consts.treeLevelHeight}px`
     let binaryTreeDom = <BinaryTreeRender topWidth={containerWidth} binaryTree={binaryTree} />
     let all = binaryTree.listAll().join(',')
     this.setState({binaryTreeDom,allList: all})
