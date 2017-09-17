@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
-import BinaryTree from './test.js'
+import BinaryTree from './tree-modal.js'
 import BinaryTreeRender from './tree-node'
 
 class Binary extends Component {
