@@ -1,6 +1,6 @@
 const HOME = 'Home'
 const AWAY = 'Away'
-const width = 700
+const width = 680
 const cellWidth = (width / 8)
 const margin = cellWidth
 const totalWidth = width + 2 * margin
@@ -10,8 +10,9 @@ const totalHeight = height + 2 *margin
 const defaultBgColor = '#c33'
 const pieceRadius = 0.35 * cellWidth
 const color = {
-  [HOME]: 'red',
-  [AWAY]: '#000'
+  [HOME]: '#B80000',
+  [AWAY]: '#000',
+  bg: '#f9e367'
 }
 
 

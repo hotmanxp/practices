@@ -1,14 +1,4 @@
-import { HOME, AWAY, cellWidth, riverWidth, pieceRadius, color } from './consts'
-import { pieceConfig } from './piece-config'
-import Piece from './piece-model'
-
-let allPieces = [ HOME, AWAY ].reduce((acc, team) => {
-  let piecesNames = Object.keys(pieceConfig)
-  piecesNames.forEach( name => {
-    acc.push(new Piece(team, name))
-  })
-  return acc
-}, [] )
+import { cellWidth, riverWidth, pieceRadius, color } from './consts'
 
 const mapPositionToCoordinates = ([x, y] = [0, 0]) => {
   x = (x - 1) * cellWidth
@@ -20,26 +10,28 @@ const mapPositionToCoordinates = ([x, y] = [0, 0]) => {
 }
 
 function renderPiece (ctx) {
-  let {x, y} = mapPositionToCoordinates(this.currentPosition)
+  let isActive = this.isActive
+  let displayPosition = isActive ? this.dynamicPosition : mapPositionToCoordinates(this.currentPosition)
+  let { x, y } = displayPosition
   ctx.save()
   ctx.beginPath()
-  ctx.fillStyle = '#fce'
-  
+  ctx.fillStyle = color.bg
+  ctx.lineWidth = isActive ? 5 : 2
   ctx.arc(x, y, pieceRadius, 0, Math.PI*2, false);
   ctx.fill()
   ctx.fillStyle = color[this.team]
+  ctx.strokeStyle = color[this.team]
   ctx.font = '27px 微软雅黑'
   ctx.fillText(this.displayText, x - 13 , y + 10)
+  ctx.arc(x, y, pieceRadius, 0, Math.PI*2, false)
+  ctx.stroke()
   ctx.closePath()
   ctx.restore()
 }
 
-allPieces.forEach (piece => {
-  piece.render = renderPiece
-})
 
-const drawPiece =  (ctx) => {
-  allPieces.forEach(i => i.render(ctx))
+const drawPiece =  (ctx, list) => {
+  list.forEach(i => renderPiece.call(i, ctx))
 }
 
 export default drawPiece
