@@ -5,7 +5,6 @@ const isSameLine = (currentPosition, targetPosition) => {
   let [curCol, curRow] = currentPosition
   let [nextCol, nextRow] = targetPosition
   if (curCol !== nextCol && curRow !== nextRow) return false
-  if (curCol !== nextCol && curRow !== nextRow) return false
   return true
 }
 
