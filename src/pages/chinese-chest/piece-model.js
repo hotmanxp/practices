@@ -38,8 +38,4 @@ export default class Piece {
     callBack && callBack(this)
   }
 
-  render (ctx) {
-    // Todo
-  }
-
 }

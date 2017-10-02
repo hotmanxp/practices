@@ -28,8 +28,13 @@ const canvasPositionToMatrixPosition = ({x, y}) => {
   }
 }
 
+const findPositionObjByChessPosition = (listInfos, chessPosition) => {
+  return listInfos.find(po => po.chessPosition[0] === chessPosition[0] && po.chessPosition[1] === chessPosition[1])
+}
+
 export {
   drawMethod,
   pieceMatrixToCanvasMatix,
-  canvasPositionToMatrixPosition
+  canvasPositionToMatrixPosition,
+  findPositionObjByChessPosition
 }

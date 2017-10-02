@@ -20,27 +20,27 @@ class ChineseChest extends Component {
   }
 
   forceUpdateCanvas () {
-    let piese = this.DataManager.getDisplayPieses()
-    DrawCanvas(this.canvas, piese, this.state.isAwayMode)
+    let piece = this.dataManager.getDisplayPieces()
+    DrawCanvas(this.canvas, piece, this.state.isAwayMode)
   }
 
   toggleView () {
     this.setState({isAwayMode: !this.state.isAwayMode}, () => {
       if (this.state.lastData) {
-        this.DataManager.load(this.state.lastData, this.state.isAwayMode)
+        this.dataManager.load(this.state.lastData, this.state.isAwayMode)
       } else {
-        this.DataManager = new DataManager(this.state.isAwayMode)
+        this.dataManager = new DataManager(this.state.isAwayMode)
       }
       this.forceUpdateCanvas()
     })
   }
 
   save () {
-    this.setState({lastData: this.DataManager.getSnapshot()})
+    this.setState({lastData: this.dataManager.getSnapshot()})
   }
 
   componentDidMount () {
-    this.DataManager = new DataManager(this.state.isAwayMode)
+    this.dataManager = new DataManager(this.state.isAwayMode)
     this.forceUpdateCanvas()
     let rect = this.canvas.getClientRects()[0]
     this.canvasOffset = {
@@ -64,28 +64,28 @@ class ChineseChest extends Component {
 
   onMouseDown (e) {
     let positionInCanvas = this.getCanvasPositionByEvent(e)
-    let piese = this.DataManager.findPieceByPosition(positionInCanvas)
-    if (piese) {
+    let piece = this.dataManager.findPieceByPosition(positionInCanvas)
+    if (piece) {
       this.hasMovingPiece = true
-      this.DataManager.setActive(piese.pieceId)
+      this.dataManager.setActive(piece.pieceId)
     } else {
-      this.DataManager.clearAllActive()
+      this.dataManager.clearAllActive()
     }
     this.forceUpdateCanvas()
   }
 
   onMouseup (e) {
     let positionInCanvas = this.getCanvasPositionByEvent(e)
-    this.DataManager.dropPiese(positionInCanvas, (a) => console.log(a))
+    this.dataManager.dropPiece(positionInCanvas, (a) => console.log(a))
     this.hasMovingPiece = false
-    this.DataManager.clearAllActive()
+    this.dataManager.clearAllActive()
     this.forceUpdateCanvas()
   }
 
   onMouseMove (e) {
     if (!this.hasMovingPiece) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
-    this.DataManager.updateDynamicPosition(positionInCanvas)
+    this.dataManager.updateDynamicPosition(positionInCanvas)
     this.forceUpdateCanvas()
   }
 

@@ -1,4 +1,5 @@
 import { HOME, homeCentrerPosition, awayCentrerPosition } from './consts'
+import {findPositionObjByChessPosition} from './utils'
 
 const isSameLine = (currentPosition, targetPosition) => {
   let [curCol, curRow] = currentPosition
@@ -38,10 +39,6 @@ const getLineMember = (allList, num, isCol) => {
   let resultList = list.filter(po => po.chessPosition[props] === num)
   resultList.sort((po1, po2) => po1.chessPosition[props] - po2.chessPosition[props])
   return resultList
-}
-
-const findPositionObjByChessPosition = (infos, chessPosition) => {
-  return infos.find(po => po.chessPosition[0] === chessPosition[0] && po.chessPosition[1] === chessPosition[1])
 }
 
 const checkBetweenPiese = (positionInfo, currentPosition, targetPosition) => {
