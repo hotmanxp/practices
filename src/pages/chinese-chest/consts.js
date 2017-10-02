@@ -14,7 +14,8 @@ const color = {
   [AWAY]: '#000',
   bg: '#f9e367'
 }
-
+const homeCentrerPosition = [5, 9]
+const awayCentrerPosition = [5, 2]
 
 export {
   HOME,
@@ -28,5 +29,7 @@ export {
   totalHeight,
   defaultBgColor,
   pieceRadius,
-  color
+  color,
+  homeCentrerPosition,
+  awayCentrerPosition
 }

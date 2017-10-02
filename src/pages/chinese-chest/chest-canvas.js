@@ -3,7 +3,7 @@ import drawBackground from './render-background'
 import drawPiece from './render-pieces'
 import { drawMethod } from './utils'
 
-const drawCanvas = (canvasEl, params) => {
+const drawCanvas = (canvasEl, pieces, isAwayMode) => {
   const canvas = canvasEl
   canvas.width = totalWidth
   canvas.height = totalHeight
@@ -11,7 +11,7 @@ const drawCanvas = (canvasEl, params) => {
   ctx.translate(margin, margin);
   
   drawMethod(ctx, drawBackground)
-  drawMethod(ctx, drawPiece, params)
+  drawMethod(ctx, drawPiece, pieces, isAwayMode)
 }
 
 export default drawCanvas

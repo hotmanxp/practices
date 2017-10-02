@@ -1,17 +1,9 @@
-import { cellWidth, riverWidth, pieceRadius, color } from './consts'
+import { pieceRadius, color } from './consts'
+import { pieceMatrixToCanvasMatix } from './utils'
 
-const mapPositionToCoordinates = ([x, y] = [0, 0]) => {
-  x = (x - 1) * cellWidth
-  y = y > 4 ? (y - 2) * cellWidth + riverWidth : (y - 1) * cellWidth
-  return {
-    x,
-    y
-  }
-}
-
-function renderPiece (ctx) {
+function renderPiece (ctx, isAwayMode) {
   let isActive = this.isActive
-  let displayPosition = isActive ? this.dynamicPosition : mapPositionToCoordinates(this.currentPosition)
+  let displayPosition = isActive ? this.dynamicPosition : pieceMatrixToCanvasMatix(this.currentPosition, isAwayMode)
   let { x, y } = displayPosition
   ctx.save()
   ctx.beginPath()
@@ -30,8 +22,8 @@ function renderPiece (ctx) {
 }
 
 
-const drawPiece =  (ctx, list) => {
-  list.forEach(i => renderPiece.call(i, ctx))
+const drawPiece =  (ctx, list, isAwayMode) => {
+  list.forEach(i => renderPiece.call(i, ctx, isAwayMode))
 }
 
 export default drawPiece

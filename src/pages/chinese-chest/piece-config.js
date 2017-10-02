@@ -1,4 +1,5 @@
 import { HOME, AWAY } from './consts'
+import { bingRule, paoRule, cheRule, maRule, xiangRule, shiRule, jiangRule } from './rules'
 
 const pieceConfig = {
   bing01: {
@@ -11,7 +12,7 @@ const pieceConfig = {
       [HOME]: [1, 7],
       [AWAY]: [9, 4]
     },
-    rules: null,
+    rules: bingRule,
   },
   bing02: {
     pieceKey: 'ch02',
@@ -23,7 +24,7 @@ const pieceConfig = {
       [HOME]: [3, 7],
       [AWAY]: [7, 4]
     },
-    rules: null,
+    rules: bingRule,
   },
   bing03: {
     pieceKey: 'ch03',
@@ -35,7 +36,7 @@ const pieceConfig = {
       [HOME]: [5, 7],
       [AWAY]: [5, 4]
     },
-    rules: null,
+    rules: bingRule,
   },
   bing04: {
     pieceKey: 'ch04',
@@ -47,7 +48,7 @@ const pieceConfig = {
       [HOME]: [7, 7],
       [AWAY]: [3, 4]
     },
-    rules: null,
+    rules: bingRule,
   },
   bing05: {
     pieceKey: 'ch05',
@@ -59,8 +60,7 @@ const pieceConfig = {
       [HOME]: [9, 7],
       [AWAY]: [1, 4]
     },
-    
-    rules: null,
+    rules: bingRule,
   },
   paoL: {
     pieceKey: 'ch06',
@@ -72,7 +72,7 @@ const pieceConfig = {
       [HOME]: [2, 8],
       [AWAY]: [8, 3]
     },
-    rules: null,
+    rules: paoRule,
   },
   paoR: {
     pieceKey: 'ch07',
@@ -84,7 +84,7 @@ const pieceConfig = {
       [HOME]: [8, 8],
       [AWAY]: [2, 3]
     },
-    rules: null,
+    rules: paoRule,
   },
   cheL: {
     pieceKey: 'ch08',
@@ -96,7 +96,7 @@ const pieceConfig = {
       [HOME]: [1, 10],
       [AWAY]: [9, 1]
     },
-    rules: null,
+    rules: cheRule,
   },
   cheR: {
     pieceKey: 'ch09',
@@ -108,7 +108,7 @@ const pieceConfig = {
       [HOME]: [9, 10],
       [AWAY]: [1, 1]
     },
-    rules: null,
+    rules: cheRule,
   },
   maL: {
     pieceKey: 'ch10',
@@ -120,7 +120,7 @@ const pieceConfig = {
       [HOME]: [2, 10],
       [AWAY]: [8, 1]
     },
-    rules: null,
+    rules: maRule,
   },
   maR: {
     pieceKey: 'ch11',
@@ -132,7 +132,7 @@ const pieceConfig = {
       [HOME]: [8, 10],
       [AWAY]: [2, 1]
     },
-    rules: null,
+    rules: maRule,
   },
   xiangL: {
     pieceKey: 'ch12',
@@ -144,7 +144,7 @@ const pieceConfig = {
       [HOME]: [3, 10],
       [AWAY]: [7, 1]
     },
-    rules: null,
+    rules: xiangRule,
   },
   xiangR: {
     pieceKey: 'ch13',
@@ -156,7 +156,7 @@ const pieceConfig = {
       [HOME]: [7, 10],
       [AWAY]: [3, 1]
     },
-    rules: null,
+    rules: xiangRule,
   },
   shiL: {
     pieceKey: 'ch14',
@@ -168,7 +168,7 @@ const pieceConfig = {
       [HOME]: [4, 10],
       [AWAY]: [6, 1]
     },
-    rules: null,
+    rules: shiRule,
   },
   shiR: {
     pieceKey: 'ch15',
@@ -180,7 +180,7 @@ const pieceConfig = {
       [HOME]: [6, 10],
       [AWAY]: [4, 1]
     },
-    rules: null,
+    rules: shiRule,
   },
   jiang: {
     pieceKey: 'ch16',
@@ -192,7 +192,7 @@ const pieceConfig = {
       [HOME]: [5, 10],
       [AWAY]: [5, 1]
     },
-    rules: null,
+    rules: jiangRule,
   },
 }
 
