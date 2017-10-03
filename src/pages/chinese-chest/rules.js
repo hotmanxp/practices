@@ -62,7 +62,6 @@ const isHorizatalMoveOne = (currentPosition, targetPosition) => {
 
 function bingRule (positionInfo, targetPosition) {
   const isHome = this.team === HOME
-  console.log(this.currentPosition, targetPosition)
   if (calcDistance(this.currentPosition, targetPosition) > 1) return false
   if (isHome && (targetPosition[1] - this.currentPosition[1] === -1)) return true
   if (!isHome && (targetPosition[1] - this.currentPosition[1] === 1)) return true
