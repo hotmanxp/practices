@@ -1,5 +1,6 @@
 const HOME = 'Home'
 const AWAY = 'Away'
+const OBSERVER = 'Observer'
 const width = 680
 const cellWidth = (width / 8)
 const margin = cellWidth
@@ -20,6 +21,7 @@ const awayCentrerPosition = [5, 2]
 export {
   HOME,
   AWAY,
+  OBSERVER,
   width,
   margin,
   totalWidth,

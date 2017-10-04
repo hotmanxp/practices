@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import DrawCanvas from './chest-canvas'
 import DataManager from './data-manage'
-import { margin } from './consts'
-import Services from './service'
+import { margin, AWAY } from './consts'
 import { observer } from 'mobx-react'
 import GlobalInfo from './page-status'
 import Login from './login-cmp'
@@ -26,7 +25,7 @@ class ChineseChest extends Component {
 
   forceUpdateCanvas () {
     let piece = this.dataManager.getDisplayPieces()
-    DrawCanvas(this.canvas, piece, this.state.isAwayMode)
+    DrawCanvas(this.canvas, piece, GlobalInfo.gameSide === AWAY)
   }
 
   toggleView () {
@@ -45,18 +44,25 @@ class ChineseChest extends Component {
   }
 
   initChess () {
-    this.dataManager = new DataManager(this.state.isAwayMode)
+    this.dataManager = new DataManager(GlobalInfo.gameSide === AWAY)
     this.forceUpdateCanvas()
     let rect = this.canvas.getClientRects()[0]
     this.canvasOffset = {
       x: rect.left,
       y: rect.top
     }
+    Events.getGameDataMessage().subscribe(nextStep => {
+      console.log(nextStep)
+      this.dataManager.updateByNextStep(nextStep)
+      this.forceUpdateCanvas()
+    })
   }
 
   async componentDidMount () {
-    Events.getGameDataMessage().subscribe((data) => {
-      console.log(data)
+    Events.getGameStatus().subscribe((isStart) => {
+      if(isStart) {
+        this.initChess()
+      }
     })
   }
 
@@ -87,7 +93,9 @@ class ChineseChest extends Component {
 
   onMouseup (e) {
     let positionInCanvas = this.getCanvasPositionByEvent(e)
-    this.dataManager.dropPiece(positionInCanvas, (a) => console.log(a))
+    this.dataManager.dropPiece(positionInCanvas, (dropInfo) => {
+      Events.sendNext({pieceId: dropInfo.pieceId, nextPosition: dropInfo.move.to})
+    })
     this.hasMovingPiece = false
     this.dataManager.clearAllActive()
     this.forceUpdateCanvas()
@@ -101,11 +109,9 @@ class ChineseChest extends Component {
   }
 
   render() {
-    if (!GlobalInfo.isLogin) return <Login />
+    if (!GlobalInfo.isInplay) return <Login />
     return (
       <div>
-        <button onClick={() => this.toggleView()}>Toggle</button>
-        <button onClick={() => this.save()}>Save</button>
         <canvas style={canvasStyle} onMouseUp={this.onMouseup} onMouseMove={this.onMouseMove} onMouseDown={this.onMouseDown} ref={ ref => {this.canvas = ref} } />
       </div>
     )

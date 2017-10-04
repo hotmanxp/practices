@@ -4,7 +4,6 @@ import { Subject } from 'rx-lite'
 class EventHub {
     constructor () {
     this.Messages = new Subject()
-    console.log(this.Messages, 'subject')
   }
 
   async initWs () {
@@ -22,6 +21,10 @@ class EventHub {
     .map(data => data.data)
   }
 
+  sendNext (nextStep) {
+    this.ws.send({type: 'NEXT_STEP', nextStep})
+  }
+
   getLoginMessage () {
     return this.Messages.filter((data) => {
       return data.type === 'LOGIN'
@@ -34,6 +37,22 @@ class EventHub {
       return data.type === 'NEW_USERS'
     })
     .map(data => data.data)
+  }
+
+  getTeamsUpdate () {
+    return this.Messages
+    .filter((data) => {
+      return data.type === 'TEAM_UPDATE'
+    })
+    .map(data => data.teamInfo)
+  }
+
+  getGameStatus () {
+    return this.Messages
+    .filter((data) => {
+      return data.type === 'GAME_CONTROL'
+    })
+    .map(data => data.start)
   }
 
   login (username) {

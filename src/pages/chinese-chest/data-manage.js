@@ -12,6 +12,7 @@ class DataManager {
     this.initAllPositionInfo(this.isAwayMode)
     this.initAllPiece()
     this.step = 0
+    this.isFreeze = false
     this.record = []
   }
   initAllPiece () {
@@ -66,6 +67,21 @@ class DataManager {
     if (piece) {
       piece.isAlive = false
     }
+  }
+
+  updateByNextStep (nextStep) {
+    this.isFreeze = true
+    this.activePiece = this.allPieces.find(p => p.pieceId === nextStep.pieceId)
+    let targetPosition = findPositionObjByChessPosition(this.allPosition, nextStep.nextPosition)
+    this.nextStep(targetPosition)
+    this.isFreeze = false
+  }
+
+  nextStep (targetPosition) {
+    let moveRecord = {pieceId: this.activePiece.pieceId, move:{from: this.activePiece.currentPosition, to: targetPosition.chessPosition}}
+    this.recordMove(moveRecord)
+    this.activePiece.move(targetPosition)
+    return moveRecord
   }
 
   findPieceByPosition ({x, y}) {
@@ -124,9 +140,7 @@ class DataManager {
     if (!targetPosition) return
     let canMove = this.activePiece.rules(this.allPosition, targetPosition.chessPosition)
     if (!canMove) return
-    let moveRecord = {pieceId: this.activePiece.pieceId, move:{from: this.activePiece.currentPosition, to: targetPosition.chessPosition}}
-    this.recordMove(moveRecord)
-    this.activePiece.move(targetPosition)
+    let moveRecord = this.nextStep(targetPosition)
     succesCallback && succesCallback({...moveRecord, step: this.step})
   }
 
