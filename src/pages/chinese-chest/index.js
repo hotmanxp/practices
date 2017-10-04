@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import DrawCanvas from './chest-canvas'
 import DataManager from './data-manage'
 import { margin } from './consts'
+import Services from './service'
+import { observer } from 'mobx-react'
+import GlobalInfo from './page-status'
+import Login from './login-cmp'
+import Events from './event-hub'
 
 const canvasStyle = {
   margin: '10px'
@@ -39,7 +44,7 @@ class ChineseChest extends Component {
     this.setState({lastData: this.dataManager.getSnapshot()})
   }
 
-  componentDidMount () {
+  initChess () {
     this.dataManager = new DataManager(this.state.isAwayMode)
     this.forceUpdateCanvas()
     let rect = this.canvas.getClientRects()[0]
@@ -47,6 +52,12 @@ class ChineseChest extends Component {
       x: rect.left,
       y: rect.top
     }
+  }
+
+  async componentDidMount () {
+    Events.getGameDataMessage().subscribe((data) => {
+      console.log(data)
+    })
   }
 
   getCanvasPositionByMouse ({x, y}) {
@@ -90,6 +101,7 @@ class ChineseChest extends Component {
   }
 
   render() {
+    if (!GlobalInfo.isLogin) return <Login />
     return (
       <div>
         <button onClick={() => this.toggleView()}>Toggle</button>
@@ -100,4 +112,4 @@ class ChineseChest extends Component {
   }
 }
 
-export default ChineseChest
+export default observer(ChineseChest)
