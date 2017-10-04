@@ -112,7 +112,7 @@ class DataManager {
   }
 
   updateDynamicPosition ({x, y}) {
-    if (!this.activePiece) return
+    if (!this.activePiece || this.isFreeze) return
     this.activePiece.dynamicPosition = {x, y}
   }
 

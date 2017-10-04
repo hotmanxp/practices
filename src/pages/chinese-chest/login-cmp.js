@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GlobalInfo from './page-status'
 import { observer } from 'mobx-react'
-import { HOME, AWAY, OBSERVER } from './consts'
 
 class LoginInfo extends Component {
   constructor (props) {
