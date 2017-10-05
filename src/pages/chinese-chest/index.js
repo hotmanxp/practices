@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DrawCanvas from './chest-canvas'
 import DataManager from './data-manage'
-import { margin, AWAY, OBSERVER } from './consts'
+import { margin, HOME, AWAY, OBSERVER } from './consts'
 import { observer } from 'mobx-react'
 import GlobalInfo from './page-status'
 import Login from './login-cmp'
@@ -11,7 +11,7 @@ const canvasStyle = {
   margin: '10px'
 }
 
-class ChineseChest extends Component {
+class ChineseChess extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -68,8 +68,12 @@ class ChineseChest extends Component {
     return this.getCanvasPositionByMouse({x: e.pageX, y: e.pageY})
   }
 
+  canControl () {
+    return (GlobalInfo.gameSide === HOME && (this.dataManager.step % 2 === 0)) || (GlobalInfo.gameSide === AWAY && (this.dataManager.step % 2 === 1)) 
+  }
+
   onMouseDown (e) {
-    if (GlobalInfo.gameSide === OBSERVER) return
+    if (!this.canControl()) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
     let piece = this.dataManager.findPieceByPosition(positionInCanvas)
     if (piece) {
@@ -82,10 +86,10 @@ class ChineseChest extends Component {
   }
 
   onMouseup (e) {
-    if (GlobalInfo.gameSide === OBSERVER) return
+    if (!this.canControl()) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
     this.dataManager.dropPiece(positionInCanvas, (dropInfo) => {
-      Events.sendNext({pieceId: dropInfo.pieceId, nextPosition: dropInfo.move.to})
+      Events.sendNext({pieceId: dropInfo.pieceId, step: dropInfo.step, nextPosition: dropInfo.move.to})
     })
     this.hasMovingPiece = false
     this.dataManager.clearAllActive()
@@ -109,4 +113,4 @@ class ChineseChest extends Component {
   }
 }
 
-export default observer(ChineseChest)
+export default observer(ChineseChess)
