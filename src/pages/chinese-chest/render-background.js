@@ -61,9 +61,9 @@ const drawRiver = (ctx) => {
   ctx.lineTo(width -0 , 4 * cellWidth + riverWidth)
   ctx.lineTo(0, 4 * cellWidth + riverWidth)
   ctx.lineTo(0, 4 * cellWidth)
-  ctx.font = `${cellWidth * 0.75}px 微软雅黑`
-  ctx.fillText('楚河',  cellWidth * 1.5, cellWidth * 5)
-  ctx.fillText('汉界',  cellWidth * 5, cellWidth * 5)
+  ctx.font = `${cellWidth * 0.7}px 微软雅黑`
+  ctx.fillText('楚河',  cellWidth * 1.5, cellWidth * 4.9)
+  ctx.fillText('汉界',  cellWidth * 5, cellWidth * 4.9)
   ctx.closePath()
   ctx.stroke()
 

@@ -84,7 +84,7 @@ class DataManager {
     let winTeam = null
     if (aliveJiangs.length < 2){
       gameEnd = true
-      winTeam = aliveJiangs[0].pieceId.toLowerCase().indexOf('home') > -1 ? HOME : AWAY
+      winTeam = aliveJiangs[0].team === HOME ? HOME : AWAY
     }
     if (gameEnd) {
       this.winHook && this.winHook(winTeam)
