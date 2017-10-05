@@ -105,7 +105,7 @@ wss.on('connection', function connection(ws) {
         sendToAll({type: 'GAME_CONTROL', end: true, winner})
         break
       case 'NEXT_STEP':
-        gameInfo.push(data.nextStep)
+        gameInfo.records.push(data.nextStep)
         sendToOther(ws, {type: 'GAME_DATA', data: data.nextStep})
         break
       default: {
