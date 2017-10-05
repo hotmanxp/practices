@@ -81,7 +81,7 @@ class DataManager {
     let moveRecord = {pieceId: this.activePiece.pieceId, move:{from: this.activePiece.currentPosition, to: targetPosition.chessPosition}}
     this.recordMove(moveRecord)
     this.activePiece.move(targetPosition)
-    return moveRecord
+    return {...moveRecord, step: this.step}
   }
 
   findPieceByPosition ({x, y}) {
@@ -141,7 +141,7 @@ class DataManager {
     let canMove = this.activePiece.rules(this.allPosition, targetPosition.chessPosition)
     if (!canMove) return
     let moveRecord = this.nextStep(targetPosition)
-    succesCallback && succesCallback({...moveRecord, step: this.step})
+    succesCallback && succesCallback(moveRecord)
   }
 
   getSnapshot () {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DrawCanvas from './chest-canvas'
 import DataManager from './data-manage'
-import { margin, AWAY } from './consts'
+import { margin, AWAY, OBSERVER } from './consts'
 import { observer } from 'mobx-react'
 import GlobalInfo from './page-status'
 import Login from './login-cmp'
@@ -26,17 +26,6 @@ class ChineseChest extends Component {
   forceUpdateCanvas () {
     let piece = this.dataManager.getDisplayPieces()
     DrawCanvas(this.canvas, piece, GlobalInfo.gameSide === AWAY)
-  }
-
-  toggleView () {
-    this.setState({isAwayMode: !this.state.isAwayMode}, () => {
-      if (this.state.lastData) {
-        this.dataManager.load(this.state.lastData, this.state.isAwayMode)
-      } else {
-        this.dataManager = new DataManager(this.state.isAwayMode)
-      }
-      this.forceUpdateCanvas()
-    })
   }
 
   save () {
@@ -80,6 +69,7 @@ class ChineseChest extends Component {
   }
 
   onMouseDown (e) {
+    if (GlobalInfo.gameSide === OBSERVER) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
     let piece = this.dataManager.findPieceByPosition(positionInCanvas)
     if (piece) {
@@ -92,6 +82,7 @@ class ChineseChest extends Component {
   }
 
   onMouseup (e) {
+    if (GlobalInfo.gameSide === OBSERVER) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
     this.dataManager.dropPiece(positionInCanvas, (dropInfo) => {
       Events.sendNext({pieceId: dropInfo.pieceId, nextPosition: dropInfo.move.to})
