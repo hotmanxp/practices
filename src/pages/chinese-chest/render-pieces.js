@@ -13,8 +13,8 @@ function renderPiece (ctx, isAwayMode) {
   ctx.fill()
   ctx.fillStyle = color[this.team]
   ctx.strokeStyle = color[this.team]
-  ctx.font = '27px 微软雅黑'
-  ctx.fillText(this.displayText, x - 13 , y + 10)
+  ctx.font = `${pieceRadius * 0.8}px 微软雅黑`
+  ctx.fillText(this.displayText, x - pieceRadius * 0.4 , y + pieceRadius * 0.33)
   ctx.arc(x, y, pieceRadius, 0, Math.PI*2, false)
   ctx.stroke()
   ctx.closePath()

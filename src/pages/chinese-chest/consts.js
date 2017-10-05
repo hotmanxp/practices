@@ -7,9 +7,9 @@ const margin = cellWidth
 const totalWidth = width + 2 * margin
 const riverWidth = 1.5 * cellWidth
 const height = cellWidth * 8 + riverWidth
-const totalHeight = height + 2 *margin
+const totalHeight = height + 2 * margin
 const defaultBgColor = '#c33'
-const pieceRadius = 0.35 * cellWidth
+const pieceRadius = 0.4 * cellWidth
 const color = {
   [HOME]: '#B80000',
   [AWAY]: '#000',
