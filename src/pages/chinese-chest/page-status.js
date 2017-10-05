@@ -8,6 +8,7 @@ class GlobalInfo {
       user: null,
       isLogin: computed(() => !!this.user),
       teamInfo: null,
+      lastWinner: null,
       gameSide: computed(() => {
         if (!this.teamInfo) return null
         if (this.teamInfo.home === this.user) return HOME
@@ -25,7 +26,17 @@ class GlobalInfo {
   init () {
     Events.getUsers().subscribe(users => this.allUsers = users)
     Events.getTeamsUpdate().subscribe(teamInfo => this.teamInfo = teamInfo)
-    Events.getGameStatus().subscribe(isStart => this.isInplay = isStart)
+    Events.getGameStatus().subscribe(data => {
+      if (data.start) {
+        this.isInplay = true
+        return
+      }
+      if (data.end) {
+        this.isInplay = false
+        this.lastWinner = data.lastWinner
+        return
+      }
+    })
   }
 
   login (username) {

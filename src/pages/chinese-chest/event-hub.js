@@ -52,7 +52,10 @@ class EventHub {
     .filter((data) => {
       return data.type === 'GAME_CONTROL'
     })
-    .map(data => data.start)
+  }
+
+  annournceWin (team) {
+    this.ws.send({type: 'WIN', winner: team})
   }
 
   login (username) {

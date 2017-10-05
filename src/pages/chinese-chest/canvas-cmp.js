@@ -23,22 +23,26 @@ class ChessCanvas extends Component {
     DrawCanvas(this.canvas, piece, GlobalInfo.gameSide === AWAY)
   }
 
+  onWin (team) {
+    Events.annournceWin(team)
+  }
+
   async componentDidMount () {
-    this.dataManager = new DataManager(GlobalInfo.gameSide === AWAY)
+    this.dataManager = new DataManager(GlobalInfo.gameSide === AWAY, this.onWin)
     this.forceUpdateCanvas()
     let rect = this.canvas.getClientRects()[0]
     this.canvasOffset = {
       x: rect.left,
       y: rect.top
     }
-    this.unsubscribeGameMessage = Events.getGameDataMessage().subscribe(nextStep => {
+    this.subscribeGameMessage = Events.getGameDataMessage().subscribe(nextStep => {
       this.dataManager.updateByNextStep(nextStep)
       this.forceUpdateCanvas()
     })
   }
 
   componentWillUnmount() {
-    this.unsubscribeGameMessage()
+    this.subscribeGameMessage.dispose()
   }
 
   getCanvasPositionByMouse ({x, y}) {

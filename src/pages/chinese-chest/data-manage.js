@@ -5,7 +5,7 @@ import { HOME, AWAY, pieceRadius } from './consts'
 import { pieceMatrixToCanvasMatix, findPositionObjByChessPosition } from './utils'
 
 class DataManager {
-  constructor (isAwayMode) {
+  constructor (isAwayMode, winHook) {
     this.allPieces = []
     this.activePiece = null
     this.isAwayMode = isAwayMode
@@ -14,6 +14,7 @@ class DataManager {
     this.step = 0
     this.isFreeze = false
     this.record = []
+    this.winHook = winHook
   }
   initAllPiece () {
     let allPieces = [ HOME, AWAY ].reduce((acc, team) => {
@@ -77,11 +78,26 @@ class DataManager {
     this.isFreeze = false
   }
 
+  checkWin () {
+    let aliveJiangs = this.getDisplayPieces().filter(p => p.pieceId.indexOf('jiang') > -1)
+    let gameEnd = false
+    let winTeam = null
+    if (aliveJiangs.length < 2){
+      gameEnd = true
+      winTeam = aliveJiangs[0].pieceId.toLowerCase().indexOf('home') > -1 ? HOME : AWAY
+    }
+    if (gameEnd) {
+      this.winHook && this.winHook(winTeam)
+      return winTeam
+    }
+    return null
+  }
+
   nextStep (targetPosition) {
     let moveRecord = {pieceId: this.activePiece.pieceId, move:{from: this.activePiece.currentPosition, to: targetPosition.chessPosition}}
     this.recordMove(moveRecord)
     this.activePiece.move(targetPosition)
-    return {...moveRecord, step: this.step}
+    return this.checkWin() ? null : {...moveRecord, step: this.step}
   }
 
   findPieceByPosition ({x, y}) {
@@ -141,7 +157,7 @@ class DataManager {
     let canMove = this.activePiece.rules(this.allPosition, targetPosition.chessPosition)
     if (!canMove) return
     let moveRecord = this.nextStep(targetPosition)
-    succesCallback && succesCallback(moveRecord)
+    moveRecord && succesCallback && succesCallback(moveRecord)
   }
 
   getSnapshot () {

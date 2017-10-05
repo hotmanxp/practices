@@ -21,17 +21,52 @@ let teamInfo = {
   away: null,
   observer: []
 }
+
+let gameInfo = {
+  isStart: false,
+  records: []
+}
+
+const sendToOne = (ws, data) => {
+  try {
+    ws.send(toString(data))
+  } catch (e) {
+    console.log(e)
+    let idx = allConnect.findIndex( c => c === ws)
+    if(idx > - 1) allConnect.splice(idx, 1)
+  }
+}
+
+const sendToAll = (data) => {
+  allConnect.forEach(ws => {
+    try {
+      ws.send(toString(data))
+    } catch (e) {
+      console.log(e)
+      let idx = allConnect.findIndex( c => c === ws)
+      if(idx > - 1) allConnect.splice(idx, 1)
+    }
+  })
+}
+const sendToOther = (selfCennect, data) => {
+  allConnect.filter(c => c !== selfCennect)
+  .forEach(ws => {
+    try {
+      ws.send(toString(data))
+    } catch (e) {
+      console.log(e)
+      let idx = allConnect.findIndex( c => c === ws)
+      if(idx > - 1) allConnect.splice(idx, 1)
+    }
+  })
+}
 wss.on('connection', function connection(ws) {
   const location = url.parse(ws.upgradeReq.url, true);
   // You might use location.query.access_token to authenticate or share sessions
   // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-  console.log(location)
   allConnect.push(ws)
-  ws.send(toString({
-    type: 'TEAM_UPDATE',
-    teamInfo: teamInfo
-  }))
-  allConnect.forEach(ws => {ws.send(toString({type: 'NEW_USERS', data: users}))})
+    sendToOne(ws, {type: 'TEAM_UPDATE', teamInfo})
+    sendToAll({type: 'NEW_USERS', data: users})
   ws.on('message', function incoming(message) {
     let data = toObj(message)
     switch (data.type) {
@@ -39,16 +74,16 @@ wss.on('connection', function connection(ws) {
         let user = data.user
         if (users.indexOf(user) > -1) return
         users.push(user)
-        ws.send(toString({type: 'LOGIN', isLogin: true}))
-        allConnect.forEach(ws => {ws.send(toString({type: 'NEW_USERS', data: users}))})
+        sendToOne(ws, {type: 'LOGIN', isLogin: true})
+        sendToAll({type: 'NEW_USERS', data: users})
       } break
       case 'LOGOUT': {
         let user = data.user
         let userIndex = users.findIndex(u => user === u)
         if (userIndex === -1) return
         users.splice(userIndex, 1)
-        ws.send(toString({type: 'LOGIN', isLogin: false}))
-        allConnect.forEach(ws => {ws.send(toString({type: 'NEW_USERS', data: users}))})
+        sendToOne(ws, {type: 'LOGIN', isLogin: false})
+        sendToAll({type: 'NEW_USERS', data: users})
       } break
       case 'TEAM': {
         let choose = data.choose
@@ -57,18 +92,21 @@ wss.on('connection', function connection(ws) {
         } else {
           teamInfo[choose] = data.user
         }
-        allConnect.forEach(ws => {ws.send(toString({type: 'TEAM_UPDATE', teamInfo}))})
+        sendToAll({type: 'TEAM_UPDATE', teamInfo})
       } break
       case 'START': 
-        allConnect.forEach(ws => {ws.send(toString({type: 'GAME_CONTROL', start: true}))})
+        gameInfo.isStart = true
+        sendToAll({type: 'GAME_CONTROL', start: true})
         break
-      case 'NEXT_STEP': 
-        allConnect.filter(i => i !== ws).forEach(ws => {
-          ws.send(toString({
-            type: 'GAME_DATA',
-            data: data.nextStep
-          }))
-        })
+      case 'WIN':
+        let {winner} = data
+        gameInfo.isStart = false
+        gameInfo = []
+        sendToAll({type: 'GAME_CONTROL', end: true, winner})
+        break
+      case 'NEXT_STEP':
+        gameInfo.push(data.nextStep)
+        sendToOther(ws, {type: 'GAME_DATA', data: data.nextStep})
         break
       default: {
         
