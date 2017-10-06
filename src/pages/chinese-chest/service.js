@@ -1,7 +1,7 @@
 export default {
   connect () {
     return new Promise((res) => {
-      let ws = new WebSocket('ws:\\localhost:8081')
+      let ws = new WebSocket('ws:\\192.168.0.50:8081')
       ws.onopen = (ms) => {
           let WS = {}
           ws.onmessage = (ms) => {
