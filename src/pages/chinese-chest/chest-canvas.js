@@ -1,9 +1,10 @@
 import { totalWidth, totalHeight, margin } from './consts'
 import drawBackground from './render-background'
 import drawPiece from './render-pieces'
+import drawPannel from './render-info-pannel'
 import { drawMethod } from './utils'
 
-const drawCanvas = (canvasEl, pieces, isAwayMode) => {
+const drawCanvas = (canvasEl, dataManager, teamInfo) => {
   const canvas = canvasEl
   canvas.width = totalWidth
   canvas.height = totalHeight
@@ -11,7 +12,8 @@ const drawCanvas = (canvasEl, pieces, isAwayMode) => {
   ctx.translate(margin, margin);
   
   drawMethod(ctx, drawBackground)
-  drawMethod(ctx, drawPiece, pieces, isAwayMode)
+  drawMethod(ctx, drawPiece, dataManager.getDisplayPieces(), dataManager.isAwayMode)
+  drawMethod(ctx, drawPannel, dataManager, teamInfo)
 }
 
 export default drawCanvas

@@ -16,7 +16,7 @@ class LoginInfo extends Component {
           <button onClick={() => GlobalInfo.logout()}>Logout</button>
           <div>
             {GlobalInfo.gameSide ? 
-              <div>{`Side: ${GlobalInfo.gameSide}`}</div>
+              <div>{`Side: ${GlobalInfo.gameSide}`}<button onClick={() => GlobalInfo.reSelectSide()}>Re-select</button></div>
               : <div>
                 <div>Choose...</div>
                 <div>

@@ -88,9 +88,18 @@ wss.on('connection', function connection(ws) {
       case 'TEAM': {
         let choose = data.choose
         if (choose === 'observer') {
-          teamInfo.observer.push(data.user)
+          if (data.reselect) {
+            let idx = teamInfo.observer.findIndex(u => u === data.user)
+            if (idx !== -1) teamInfo.observer.splice(idx, 1)
+          } else {
+            teamInfo.observer.push(data.user)
+          }
         } else {
-          teamInfo[choose] = data.user
+          if (data.reselect) {
+            teamInfo[choose] = null
+          } else {
+            teamInfo[choose] = data.user
+          }
         }
         sendToAll({type: 'TEAM_UPDATE', teamInfo})
       } break

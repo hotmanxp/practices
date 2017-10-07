@@ -61,6 +61,10 @@ class GlobalInfo {
   startPlay () {
     Events.sentData({type: 'START'})
   }
+
+  reSelectSide () {
+    Events.sentData({type: 'TEAM', reselect: true, choose: this.gameSide.toLowerCase(), user: this.user})
+  }
   
 }
 

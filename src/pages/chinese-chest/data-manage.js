@@ -15,6 +15,7 @@ class DataManager {
     this.isFreeze = false
     this.record = []
     this.winHook = winHook
+    this.tipsPiece = null
   }
   initAllPiece () {
     let allPieces = [ HOME, AWAY ].reduce((acc, team) => {
@@ -96,8 +97,24 @@ class DataManager {
   nextStep (targetPosition) {
     let moveRecord = {pieceId: this.activePiece.pieceId, move:{from: this.activePiece.currentPosition, to: targetPosition.chessPosition}}
     this.recordMove(moveRecord)
-    this.activePiece.move(targetPosition)
+    this.activePiece.move(targetPosition, (p) => {this.tipsPiece = p})
+    this.checkIsKillingLeader()
     return this.checkWin() ? null : {...moveRecord, step: this.step}
+  }
+
+  checkIsKillingLeader () {
+    return this.getDisplayPieces()
+    .reduce((acc, piece) => {
+      let team = piece.team
+      let agaistTeam = team === HOME ? AWAY : HOME
+      let againstJiang = this.allPieces.find(p => p.pieceId === `id${agaistTeam}jiang`)
+      let agaistJiangPosition = againstJiang.positionRef
+      if(piece.rules(this.allPosition, agaistJiangPosition.chessPosition)){
+        acc = true
+        this.tipsPiece = againstJiang
+      }
+      return acc
+    }, false)
   }
 
   findPieceByPosition ({x, y}) {

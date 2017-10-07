@@ -19,8 +19,7 @@ class ChessCanvas extends Component {
   }
 
   forceUpdateCanvas () {
-    let piece = this.dataManager.getDisplayPieces()
-    DrawCanvas(this.canvas, piece, GlobalInfo.gameSide === AWAY)
+    DrawCanvas(this.canvas, this.dataManager, GlobalInfo.teamInfo)
   }
 
   onWin (team) {
