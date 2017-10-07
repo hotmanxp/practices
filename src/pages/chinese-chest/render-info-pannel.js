@@ -1,5 +1,4 @@
-import { width, height, cellWidth, riverWidth, margin, totalWidth, pannelWidth, color } from './consts'
-import { drawMethod } from './utils'
+import { width, height, margin, pannelWidth, color } from './consts'
 
 const renderBorder = (ctx) => {
   ctx.beginPath()
