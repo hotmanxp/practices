@@ -167,8 +167,6 @@ class DataManager {
 
   dropPiece (position, succesCallback) {
     if (!this.activePiece) return
-    if (this.activePiece.team === HOME && (this.step % 2)) return
-    if (this.activePiece.team === AWAY && !(this.step % 2)) return
     let targetPosition = this.checkCanMove(position)
     if (!targetPosition) return
     let canMove = this.activePiece.rules(this.allPosition, targetPosition.chessPosition)

@@ -75,7 +75,7 @@ class ChessCanvas extends Component {
   }
 
   onMouseup (e) {
-    if (!this.canControl()) return
+    if (!this.canControl() && !this.hasMovingPiece) return
     let positionInCanvas = this.getCanvasPositionByEvent(e)
     this.dataManager.dropPiece(positionInCanvas, (dropInfo) => {
       Events.sendNext({pieceId: dropInfo.pieceId, step: dropInfo.step, nextPosition: dropInfo.move.to})
