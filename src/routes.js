@@ -2,6 +2,7 @@ import Home from './pages/home'
 import Nav from './pages/navigate'
 import BinaryTree from './pages/binary-tree'
 import ChineseChest from './pages/chinese-chest'
+import RxjsComp from './pages/rxjs'
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     Cmp: ChineseChest,
     name: 'chineseChest',
     path: '/chinese-chest'
+  },
+  {
+    Cmp: RxjsComp,
+    name: 'Rxjs',
+    path: '/rxjs'
   }
 ]
 export default routes
