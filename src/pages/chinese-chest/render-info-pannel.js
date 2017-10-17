@@ -48,6 +48,7 @@ const drawPannel = (ctx, dataManager, teamInfo) => {
   renderTeam(ctx, teamInfo)
   renderTip(ctx, dataManager)
   ctx.restore()
+
 }
 
 export default drawPannel
