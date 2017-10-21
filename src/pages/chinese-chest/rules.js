@@ -32,6 +32,7 @@ const inCenter = (isHome, position) => {
   return true
 }
 
+
 const getLineMember = (allList, num, isCol) => {
   let props = isCol ? 0 : 1
   let list = allList.slice()
