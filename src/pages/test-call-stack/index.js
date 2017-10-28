@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {useAsync, useGen} from './test-generator'
 
 class TestCallStack extends Component {
   constructor (props) {
@@ -6,6 +7,11 @@ class TestCallStack extends Component {
     this.state = {
       num: 0
     }
+    // this.testEval()
+  }
+  testEval () {
+    let func = `console.log('ss', this.state)`
+    eval(func)
   }
   testState = (e) => {
     this.setState({num: ++this.state.num}, () => {
@@ -23,15 +29,17 @@ class TestCallStack extends Component {
 
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('component update!!')
+    //console.log('component update!!')
   }
   render() {
-    if (this.state.num < 1 ) this.setState({num: 1})
+    // if (this.state.num < 1 ) this.setState({num: 1})
     return (
       <div>
         {`Num: ${this.state.num}`}
         <div>
           <button onClick={this.testState}>Test</button>
+          <button onClick={() => useAsync('useAsync')}>Use Async</button>
+          <button onClick={() => useGen('useGenerator')}>Use Gen</button>
         </div>
       </div>
     );
