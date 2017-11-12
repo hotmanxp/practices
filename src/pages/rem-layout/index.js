@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './layout.css'
+import './layout.less'
 
 class RemLayout extends Component {
   constructor (props) {
@@ -20,9 +20,12 @@ class RemLayout extends Component {
   render() {
     return (
       <div className='layout-page'>
-        <div><button onClick={this.showBottom}>Add action part</button></div>
-        layout
-        <div className='half-container'>50% container</div>
+        <div className='content'>
+          <div><button onClick={this.showBottom}>Add action part</button></div>
+          layout
+          <div className='half-container'>50% container</div>
+        </div>
+        <div className='btn-container'><button>Create</button></div>
         {this.state.showAction && <div className='action-part'>This is action part</div>}
       </div>
     );

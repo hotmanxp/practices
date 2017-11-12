@@ -1,0 +1,54 @@
+@contentPartHeight: 10rem;
+@contentPartHeightWithBottom: ~"10rem - 150px";
+
+
+html {
+  font-size: 100vh / 10;
+}
+
+body {
+  font-size: 14px;
+}
+
+.layout-page {
+  position: relative;
+  height: @contentPartHeight;
+
+  .content {
+    position: relative;
+    height: calc(@contentPartHeightWithBottom);
+  }
+}
+
+.half-container {
+  background-color: rgb(235, 111, 179);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(~'(10rem - 150px) * 0.5');
+  width: 100%;
+  padding-top: 50px;
+  z-index: -1;
+  box-sizing: border-box;
+}
+
+.btn-container {
+  height: 150px;
+  background-color: pink;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.action-part {
+  text-align: center;
+  line-height: 50px;
+  font-size: 30px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(41, 173, 61);
+  opacity: 0.8;
+}
