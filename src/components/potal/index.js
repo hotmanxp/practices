@@ -10,10 +10,14 @@ class Potal extends Component {
   }
 
   renderChildren () {
-    const {containerId, children} = this.props
-    if (!containerId || !children) return
+    const {containerId, renderContent, children} = this.props
+    if (!containerId) return
     const containerEl = document.getElementById(containerId)
-    unstable_renderSubtreeIntoContainer(this, <div>{children}</div>, containerEl)
+    const content = renderContent
+      ? renderContent()
+      : children
+      console.log(content, 'constene')
+    unstable_renderSubtreeIntoContainer(this, <div>{content}</div>, containerEl)
   }
 
   componentDidMount() {
