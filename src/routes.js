@@ -5,6 +5,7 @@ import ChineseChest from './pages/chinese-chest'
 import RxjsComp from './pages/rxjs'
 import TestCallStack from './pages/test-call-stack'
 import Layout from './pages/rem-layout'
+import Potal from 'page/potal'
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
     Cmp: Layout,
     name: 'Layout',
     path: '/rem-layout'
+  },
+  {
+    Cmp: Potal,
+    name: 'Potal',
+    path: '/potal'
   }
 ]
 export default routes
