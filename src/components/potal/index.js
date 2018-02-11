@@ -9,19 +9,15 @@ class Potal extends Component {
     }
   }
 
-  renderChildren () {
-    const {containerId, renderContent, children} = this.props
+  renderChildren (props) {
+    const {containerId, children} = props
     if (!containerId) return
     const containerEl = document.getElementById(containerId)
-    const content = renderContent
-      ? renderContent()
-      : children
-      console.log(content, 'constene')
-    unstable_renderSubtreeIntoContainer(this, <div>{content}</div>, containerEl)
+    unstable_renderSubtreeIntoContainer(this, <div>{children}</div>, containerEl)
   }
 
   componentDidMount() {
-    this.renderChildren()
+    this.renderChildren(this.props)
   }
 
   componentWillUnmount () {
@@ -31,8 +27,8 @@ class Potal extends Component {
     unmountComponentAtNode(containerEl)
   }
   
-  componentWillReceiveProps () {
-    this.renderChildren()
+  componentWillReceiveProps (nextProps) {
+    this.renderChildren(nextProps)
   }
 
   render() {

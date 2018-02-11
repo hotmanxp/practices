@@ -15,18 +15,17 @@ class ContentCmp extends Component {
       showBtn: false
     })
   }
-  renderBtn = () => <div>
-    <button onClick={this.addOne}>Add One</button>
-    <button onClick={() => this.forceUpdate()}> Update </button>
-    <button onClick={this.hideBtn}>touch me</button>
-    <div>{`test it should be update to: ` + this.state.totalNum}</div>    
-  </div>
+
   render() {
     return (
       <Page>
         this's txt
         {
-          this.state.showBtn && <Potal containerId='btn-container' renderContent={this.renderBtn}>
+          this.state.showBtn && <Potal containerId='btn-container'>
+            <button onClick={this.addOne}>Add One</button>
+            <button onClick={() => this.forceUpdate()}> Update </button>
+            <button onClick={this.hideBtn}>touch me</button>
+            <div>{`test it should be update to: ` + this.state.totalNum}</div>
           </Potal>
         }
       </Page>
