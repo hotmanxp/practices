@@ -1,4 +1,4 @@
-import { extendObservable, computed } from 'mobx'
+import { extendObservable } from 'mobx'
 import { Subject, Observable } from 'rx-lite'
 
 class Store {

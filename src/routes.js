@@ -6,6 +6,7 @@ import RxjsComp from './pages/rxjs'
 import TestCallStack from './pages/test-call-stack'
 import Layout from './pages/rem-layout'
 import Potal from 'page/potal'
+import LocalStore from 'page/localStore'
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     Cmp: Potal,
     name: 'Potal',
     path: '/potal'
+  },
+  {
+    Cmp: LocalStore,
+    name: 'LocalStore',
+    path: '/my-local-store'
   }
 ]
 export default routes

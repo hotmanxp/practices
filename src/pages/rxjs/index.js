@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react'
 import store from './models'
-import {Observable, BehaviorSubject} from 'rx-lite'
+import {Observable} from 'rx-lite'
 
 class RxjsTest extends Component {
   componentDidMount () {

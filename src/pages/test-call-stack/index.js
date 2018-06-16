@@ -10,8 +10,8 @@ class TestCallStack extends Component {
     // this.testEval()
   }
   testEval () {
-    let func = `console.log('ss', this.state)`
-    eval(func)
+    // let func = `console.log('ss', this.state)`
+    // eval(func)
   }
   testState = (e) => {
     this.setState({num: ++this.state.num}, () => {
